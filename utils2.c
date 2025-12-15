@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/11 17:27:04 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:02:59 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,26 @@ char	**ft_split(char const *s, char c)
 	}
 	word_list[word_number] = NULL;
 	return (word_list);
+}
+
+// This functions returns how much spaces there are in a string 
+int	numbers_count(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			count++;
+		while (str[i] && str[i] != ' ')
+			i++;
+		while (str[i] && str[i] == ' ')
+			i++;
+	}
+	return (count);
 }

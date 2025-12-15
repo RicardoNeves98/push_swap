@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:47:03 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/12 18:13:58 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:48:26 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	check_integer(char *num_str)
 		sign = 1;
 	else if (num_str[0] == '-')
 		sign = -1;
-	if (num_str[(sign % 2)] == '0' && str_len > 1 + (sign % 2))
-		return (0);
 	while (num_str[++i])
 		if (num_str[i] < '0' || num_str[i] > '9') 
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/12 18:53:18 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:00:20 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,76 @@ t_list	*initialize_struct(char **num_list, int argc)
 	int	i;
 	t_list	*first_node;
 	t_list	*node;
-	t_list	*next_node;
 
 	i = 0;
 	if (argc > 2)
 		i = 1;
-	node = malloc(sizeof(t_list));
+	node = define_first_node(ft_atoi(num_list[i++]));
 	if (!node)
-	{
-		free_list(num_list);
-		return (NULL);
-	}
-	node->number = ft_atoi(num_list[i++]);
-	node->next = NULL;
+		return (free_list(num_list), NULL);
 	first_node = node;
 	while (num_list[i])
 	{
-		next_node = malloc(sizeof(t_list));
-		if (!next_node)
-		{
-			free_list(num_list);
-			free_stack(&first_node);
-			return(NULL);
-		}
-		next_node->number = ft_atoi(num_list[i++]);
-		next_node->next = NULL;
-		node->next = next_node;
-		node = next_node;
+		node = define_node(node, ft_atoi(num_list[i++]));
+		if (!node)
+			return (free_list(num_list), free_stack(&first_node), NULL);
 	}
 	node->next = NULL;
-	if (argc == 2)
-		free_list(num_list);
 	return (first_node);
+}
+
+t_list	*define_first_node(int number)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->number = number;
+	node->rank = -1;
+	node->next = NULL;
+	return (node);
+}
+
+t_list	*define_node(t_list *node, int number)
+{
+	t_list	*next_node;
+
+	next_node = malloc(sizeof(t_list));
+	if (!next_node)
+		return (NULL);
+	next_node->number = number;
+	next_node->rank = -1;
+	next_node->next = NULL;
+	node->next = next_node;
+	return (next_node);
+}
+
+void	define_rank(t_list **stack, int list_len)
+{
+	int	rank;
+	t_list	*node;
+	t_list	*min_node;
+	t_list	*next_node;
+
+	rank = 0;
+	while (rank < list_len)
+	{
+		node = *stack;
+		while (node->rank != -1)
+			node = node->next;
+		min_node = node;
+		while (node)
+		{
+			next_node = node->next;
+			if (next_node && next_node->rank == -1 && 
+				next_node->number < min_node->number)
+				min_node = next_node;
+			node = next_node;
+		}	
+		min_node->rank = rank;
+		rank++;
+	}
 }
 
 void	print_numbers(t_list **stack)
@@ -58,21 +96,24 @@ void	print_numbers(t_list **stack)
 	node = *stack;
 	while (node)
 	{
-		printf("%d \n", node->number);
+		printf("%d has rank %d\n", node->number, node->rank);
 		node = node->next;
 	}
 }
 
 int     main(int argc, char **argv)
 {
+	int	i;
+	int	list_len;
 	t_list	*first_node;
-        int     i;
 
         i = 0;
+	list_len = argc - 1;
         if (argc == 1)
                 return (0);
         else if (argc == 2)
         {
+		list_len = numbers_count(argv[1]);
                 argv = ft_split(argv[1], ' ');
                 i = -1;
         }
@@ -87,23 +128,10 @@ int     main(int argc, char **argv)
                 }
         }
         first_node = initialize_struct(argv, argc);
-	
-//	Testing the functions I created to move then nodes:
-	printf("Initial Order:\n");
+	define_rank(&first_node, list_len);
 	print_numbers(&first_node);
-//	Rotating Down 
-	rotate_down(&first_node);
-	printf("Order After Rotate Down:\n");
-	print_numbers(&first_node);
-//	Swaping First Two 
-	swap_first_two(&first_node);
-	printf("Order After Swap:\n");
-	print_numbers(&first_node);
-//	Rotating Up 
-	rotate_up(&first_node);
-	printf("Order After Rotate Up:\n");
-	print_numbers(&first_node);
-	
+	if (argc == 2)
+		free_list(argv);
 	free_stack(&first_node);
         return (0);
 }

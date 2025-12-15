@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:47:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/12 18:25:38 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:31:21 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct	s_list
 {
 	int		number;
+	int		rank;	
 	struct s_list	*next;
 }	t_list;
 
@@ -31,6 +32,7 @@ int	check_repetition(char **argv, int i);
 void	free_list(char **argv);
 void	free_stack(t_list **stack);
 // possible_moves.c -> All the moves that are allowed with the struct 
+int	stack_size(t_list **stack);
 void	swap_first_two(t_list **stack);
 void	push_sideways(t_list **stack_a, t_list **stack_b);
 void	rotate_up(t_list **stack);
@@ -45,8 +47,12 @@ int	ft_atoi(const char *nptr);
 int	get_word_number(char const *s, char c);
 int	alloc_words(char **lst, char const *s, char c);
 char	**ft_split(char const *s, char c);
+int	numbers_count(char *str);
 // push_swap.c -> The main file containing the main and other important functions 
 t_list	*initialize_struct(char **num_list, int argc);
+t_list	*define_first_node(int number);
+t_list	*define_node(t_list *node, int number);
+void	define_rank(t_list **stack, int list_len);
 void	print_number(t_list **stack);
 
 #endif
