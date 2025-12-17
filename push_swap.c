@@ -105,15 +105,17 @@ int     main(int argc, char **argv)
 {
 	int	i;
 	int	list_len;
-	t_list	*first_node;
+	t_list	*stacka_first;
+	t_list	*stackb_first;
 
         i = 0;
 	list_len = argc - 1;
+	stackb_first = NULL;
         if (argc == 1)
                 return (0);
         else if (argc == 2)
         {
-		list_len = numbers_count(argv[1]);
+		list_len = get_word_number(argv[1], ' ');
                 argv = ft_split(argv[1], ' ');
                 i = -1;
         }
@@ -123,15 +125,14 @@ int     main(int argc, char **argv)
                 {
                         if (argc == 2)
                                 free_list(argv);
-                        write(1, "Error", 5);
+                        write(2, "Error", 5);
                         return (0);
                 }
         }
-        first_node = initialize_struct(argv, argc);
-	define_rank(&first_node, list_len);
-	print_numbers(&first_node);
+        stacka_first = initialize_struct(argv, argc);
+	define_rank(&stacka_first, list_len);
 	if (argc == 2)
 		free_list(argv);
-	free_stack(&first_node);
+	free_stack(&stacka_first);
         return (0);
 }

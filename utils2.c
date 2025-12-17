@@ -38,10 +38,8 @@ int	alloc_words(char **lst, char const *s, char c)
 {
 	unsigned int	index1;
 	size_t			index2;
-	int				lst_index;
-	int				error_index;	
+	int				lst_index;	
 
-	error_index = 0;
 	lst_index = 0;
 	index1 = 0;
 	while (s[index1])
@@ -83,26 +81,4 @@ char	**ft_split(char const *s, char c)
 	}
 	word_list[word_number] = NULL;
 	return (word_list);
-}
-
-// This functions returns how much spaces there are in a string 
-int	numbers_count(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i] && str[i] == ' ')
-		i++;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			count++;
-		while (str[i] && str[i] != ' ')
-			i++;
-		while (str[i] && str[i] == ' ')
-			i++;
-	}
-	return (count);
 }

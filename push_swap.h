@@ -34,7 +34,7 @@ void	free_stack(t_list **stack);
 // possible_moves.c -> All the moves that are allowed with the struct 
 int	stack_size(t_list **stack);
 void	swap_first_two(t_list **stack);
-void	push_sideways(t_list **stack_a, t_list **stack_b);
+void	push_sideways(t_list **get_stack, t_list **give_stack);
 void	rotate_up(t_list **stack);
 void	rotate_down(t_list **stack);
 // utils1.c -> Helping functions from libft with minor alterations 
@@ -47,7 +47,6 @@ int	ft_atoi(const char *nptr);
 int	get_word_number(char const *s, char c);
 int	alloc_words(char **lst, char const *s, char c);
 char	**ft_split(char const *s, char c);
-int	numbers_count(char *str);
 // push_swap.c -> The main file containing the main and other important functions 
 t_list	*initialize_struct(char **num_list, int argc);
 t_list	*define_first_node(int number);

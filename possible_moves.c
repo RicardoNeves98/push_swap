@@ -41,17 +41,17 @@ void	swap_first_two(t_list **stack)
 	*stack = node2;
 }
 
-// push head of stact_b to stack_a 
-void	push_sideways(t_list **stack_a, t_list **stack_b)
+void	push_sideways(t_list **get_stack, t_list **give_stack)
 {
-	t_list	*node2_b;
+	t_list	*give_node2;
 
-	if (!(*stack_b))
+	if (!(*give_stack))
 		return ;
-	node2_b = (*stack_b)->next;
-	(*stack_b)->next = *stack_a;
-	*stack_a = *stack_b;
-	*stack_b = node2_b;
+	give_node2 = (*give_stack)->next;
+	(*give_stack)->next = *get_stack;
+	*get_stack = *give_stack;
+	*give_stack = give_node2;
+
 }
 
 void	rotate_up(t_list **stack)
