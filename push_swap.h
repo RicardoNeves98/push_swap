@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:47:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/15 19:31:21 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/17 19:51:06 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef struct	cost
+{
+	int	total_moves;
+	int	type;
+}	cost;
+
 typedef struct	s_list
 {
 	int		number;
-	int		rank;	
+	int		rank;
+	struct cost	cost_list;
 	struct s_list	*next;
 }	t_list;
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 // check_args.c -> Check if the arguments given are correct  
 int	check_integer(char *num_str);
@@ -52,6 +62,10 @@ t_list	*initialize_struct(char **num_list, int argc);
 t_list	*define_first_node(int number);
 t_list	*define_node(t_list *node, int number);
 void	define_rank(t_list **stack, int list_len);
-void	print_number(t_list **stack);
+void	print_numbers(t_list **stack);
+// algorithm.c -> Turk algorithm 
+int	get_min_number_node(t_list **stack);
+void	order_small(t_list **stack);
+void	get_in_order(t_list **stacka, t_list **stackb);
 
 #endif

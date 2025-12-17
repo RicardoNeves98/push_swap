@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/15 20:00:20 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/17 18:53:05 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_list	*define_first_node(int number)
 		return (NULL);
 	node->number = number;
 	node->rank = -1;
+	node->cost = 0;
 	node->next = NULL;
 	return (node);
 }
@@ -96,7 +97,7 @@ void	print_numbers(t_list **stack)
 	node = *stack;
 	while (node)
 	{
-		printf("%d has rank %d\n", node->number, node->rank);
+		printf("%d: %d\n", node->number, node->rank);
 		node = node->next;
 	}
 }
@@ -131,6 +132,10 @@ int     main(int argc, char **argv)
         }
         stacka_first = initialize_struct(argv, argc);
 	define_rank(&stacka_first, list_len);
+	print_numbers(&stacka_first);
+//	order_three(&stacka_first);
+//	printf("\n");
+//	print_numbers(&stacka_first);
 	if (argc == 2)
 		free_list(argv);
 	free_stack(&stacka_first);
