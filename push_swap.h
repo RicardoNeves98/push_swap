@@ -17,22 +17,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct	cost
-{
-	int	total_moves;
-	int	type;
-}	cost;
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 typedef struct	s_list
 {
 	int		number;
 	int		rank;
-	struct cost	cost_list;
+	int		diff;
+	int		cost;
 	struct s_list	*next;
 }	t_list;
-
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 // check_args.c -> Check if the arguments given are correct  
 int	check_integer(char *num_str);
@@ -59,13 +54,15 @@ int	alloc_words(char **lst, char const *s, char c);
 char	**ft_split(char const *s, char c);
 // push_swap.c -> The main file containing the main and other important functions 
 t_list	*initialize_struct(char **num_list, int argc);
-t_list	*define_first_node(int number);
 t_list	*define_node(t_list *node, int number);
 void	define_rank(t_list **stack, int list_len);
 void	print_numbers(t_list **stack);
 // algorithm.c -> Turk algorithm 
-int	get_min_number_node(t_list **stack);
+int	get_min_position(t_list **stack, int start_value);
 void	order_small(t_list **stack);
-void	get_in_order(t_list **stacka, t_list **stackb);
+// update_cost.c -> Updating the cost of every node on stack1
+int	get_min_diff(t_list **stack, int start_value);
+void	update_cost(t_list **stack1, t_list **stack2, int stack1_len, int stack2_len);
+int	get_min_cost(int stack1_len, int stack2_len, int moves_node1, int moves_node2);
 
 #endif

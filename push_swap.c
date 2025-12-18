@@ -21,7 +21,7 @@ t_list	*initialize_struct(char **num_list, int argc)
 	i = 0;
 	if (argc > 2)
 		i = 1;
-	node = define_first_node(ft_atoi(num_list[i++]));
+	node = define_node(NULL, ft_atoi(num_list[i++]));
 	if (!node)
 		return (free_list(num_list), NULL);
 	first_node = node;
@@ -35,20 +35,6 @@ t_list	*initialize_struct(char **num_list, int argc)
 	return (first_node);
 }
 
-t_list	*define_first_node(int number)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->number = number;
-	node->rank = -1;
-	node->cost = 0;
-	node->next = NULL;
-	return (node);
-}
-
 t_list	*define_node(t_list *node, int number)
 {
 	t_list	*next_node;
@@ -57,9 +43,12 @@ t_list	*define_node(t_list *node, int number)
 	if (!next_node)
 		return (NULL);
 	next_node->number = number;
-	next_node->rank = -1;
+	next_node->rank = 0;
+	next_node->diff = 0;
+	next_node->cost = 0;
 	next_node->next = NULL;
-	node->next = next_node;
+	if (node)
+		node->next = next_node;
 	return (next_node);
 }
 
@@ -70,21 +59,21 @@ void	define_rank(t_list **stack, int list_len)
 	t_list	*min_node;
 	t_list	*next_node;
 
-	rank = 0;
-	while (rank < list_len)
+	rank = 1;
+	while (rank <= list_len)
 	{
 		node = *stack;
-		while (node->rank != -1)
+		while (node->rank != 0)
 			node = node->next;
 		min_node = node;
 		while (node)
 		{
 			next_node = node->next;
-			if (next_node && next_node->rank == -1 && 
-				next_node->number < min_node->number)
+			if (next_node && next_node->rank == 0 && 
+					next_node->number < min_node->number)
 				min_node = next_node;
 			node = next_node;
-		}	
+		}
 		min_node->rank = rank;
 		rank++;
 	}
@@ -97,7 +86,7 @@ void	print_numbers(t_list **stack)
 	node = *stack;
 	while (node)
 	{
-		printf("%d: %d\n", node->number, node->rank);
+		printf("%d <-> %d Cost %d\n", node->number, node->rank, node->cost);
 		node = node->next;
 	}
 }
@@ -106,12 +95,12 @@ int     main(int argc, char **argv)
 {
 	int	i;
 	int	list_len;
-	t_list	*stacka_first;
-	t_list	*stackb_first;
+	t_list	*stack1_first;
+	t_list	*stack2_first;
 
         i = 0;
 	list_len = argc - 1;
-	stackb_first = NULL;
+	stack2_first = NULL;
         if (argc == 1)
                 return (0);
         else if (argc == 2)
@@ -130,14 +119,24 @@ int     main(int argc, char **argv)
                         return (0);
                 }
         }
-        stacka_first = initialize_struct(argv, argc);
-	define_rank(&stacka_first, list_len);
-	print_numbers(&stacka_first);
-//	order_three(&stacka_first);
-//	printf("\n");
-//	print_numbers(&stacka_first);
+        stack1_first = initialize_struct(argv, argc);
+	define_rank(&stack1_first, list_len);
+
+	printf("Stack 1:\n");
+	print_numbers(&stack1_first);
+	int num = 5;
+	while (num--)
+		push_sideways(&stack2_first, &stack1_first);
+	update_cost(&stack1_first, &stack2_first, stack_size(&stack1_first),
+		stack_size(&stack2_first));
+	printf("----------------------------\n");
+        printf("Stack 1:\n");
+        print_numbers(&stack1_first);
+        printf("Stack 2:\n");
+        print_numbers(&stack2_first);
+
 	if (argc == 2)
 		free_list(argv);
-	free_stack(&stacka_first);
+	free_stack(&stack1_first);
         return (0);
 }
