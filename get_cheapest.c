@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_cost.c                                      :+:      :+:    :+:   */
+/*   get_cheapest.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/17 15:46:18 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/17 19:51:47 by rcarmo-n         ###   ########.fr       */
+/*   Created: 2025/12/18 11:55:55 by rcarmo-n          #+#    #+#             */
+/*   Updated: 2025/12/18 18:48:16 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,28 @@ total2 -> Total moves using reverse rotation on both stack
 total3 -> Total moves using normal rotation on stack A and reverse rotation on stack B  
 total4 -> Total moves using reverse rotation on stack A and reverse rotation on stack B 
 */
-int     get_min_cost(int stack1_len, int stack2_len, int moves_node1, int moves_node2)
+int     get_node_cheapest_path(t_list *node1, int stack1_len, int stack2_len)
 {
 	int     total1;
 	int     total2;
 	int     total3;
 	int     total4;
+	int	min_total;
 
-	total1 = MAX(moves_node1, moves_node2);
-	total2 = MAX(stack1_len - moves_node1, stack2_len - moves_node2);
-	total3 = moves_node1 + (stack2_len - moves_node2);
-	total4 = (stack1_len - moves_node1) + moves_node2;
-	return (MIN(MIN(total1, total2), MIN(total3, total4)));
+	total1 = MAX(node1->node_ra, node1->target_ra);
+	total2 = MAX(stack1_len - node1->node_ra, stack2_len - node1->target_ra);
+	total3 = node1->node_ra + (stack2_len - node1->target_ra);
+	total4 = (stack1_len - node1->node_ra) + node1->target_ra;
+	min_total = MIN(MIN(total1, total2), MIN(total3, total4));
+	if (total1 == min_total)
+		node1->move_type = 1;
+	else if (total2 == min_total)
+		node1->move_type = 2;
+	else if (total3 == min_total)
+		node1->move_type = 3;
+	else if (total4 == min_total)
+		node1->move_type = 4;
+	return (min_total);
 }
  	
 void    update_cost(t_list **stack1, t_list **stack2, int stack1_len, int stack2_len)
@@ -75,10 +85,36 @@ void    update_cost(t_list **stack1, t_list **stack2, int stack1_len, int stack2
 		}
 		moves_node2 = get_min_diff(stack2, stack1_len + stack2_len + 1);
 		if (moves_node2 == stack1_len + stack2_len + 1)
-			moves_node2 = get_min_position(stack2, 
-				stack1_len + stack2_len + 1) - 1;
-		node1->cost = get_min_cost(stack1_len, stack2_len, moves_node1, moves_node2);
+			moves_node2 = get_min_position(stack2);
+		node1->node_ra = moves_node1;
+		node1->target_ra = moves_node2;
+		node1->cost = get_node_cheapest_path(node1, stack1_len, stack2_len);
 		node1 = node1->next;
 		moves_node1++;
 	}
+}
+
+t_list	*get_cheapest_node(t_list **stack1, t_list **stack2)
+{
+	int     min;
+	int	size1;
+	int	size2;
+	t_list	*node;
+	t_list  *min_node;
+
+	size1 = stack_size(stack1);
+	size2 = stack_size(stack2);
+	node = *stack1;
+	min_node = node;
+        update_cost(stack1, stack2, size1, size2);
+	min = node->cost;
+	while (node->next)
+	{
+		if (min == 0)
+			return (min_node);
+		node = node->next;
+		if (node->cost < min)
+			min_node = node;
+	}
+	return (min_node);
 }

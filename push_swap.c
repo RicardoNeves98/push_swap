@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/17 18:53:05 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:45:54 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_list	*define_node(t_list *node, int number)
 	next_node->rank = 0;
 	next_node->diff = 0;
 	next_node->cost = 0;
+	next_node->move_type = 0;
 	next_node->next = NULL;
 	if (node)
 		node->next = next_node;
@@ -86,7 +87,7 @@ void	print_numbers(t_list **stack)
 	node = *stack;
 	while (node)
 	{
-		printf("%d <-> %d Cost %d\n", node->number, node->rank, node->cost);
+		printf("Number %d <-> Rank %d\n", node->number, node->rank);
 		node = node->next;
 	}
 }
@@ -95,12 +96,11 @@ int     main(int argc, char **argv)
 {
 	int	i;
 	int	list_len;
-	t_list	*stack1_first;
-	t_list	*stack2_first;
+	t_list	*stack1_head;
+	t_list	*stack2_head;
 
         i = 0;
 	list_len = argc - 1;
-	stack2_first = NULL;
         if (argc == 1)
                 return (0);
         else if (argc == 2)
@@ -119,24 +119,19 @@ int     main(int argc, char **argv)
                         return (0);
                 }
         }
-        stack1_first = initialize_struct(argv, argc);
-	define_rank(&stack1_first, list_len);
+        stack1_head = initialize_struct(argv, argc);
+	stack2_head = NULL;
+	define_rank(&stack1_head, list_len);
 
 	printf("Stack 1:\n");
-	print_numbers(&stack1_first);
-	int num = 5;
-	while (num--)
-		push_sideways(&stack2_first, &stack1_first);
-	update_cost(&stack1_first, &stack2_first, stack_size(&stack1_first),
-		stack_size(&stack2_first));
-	printf("----------------------------\n");
+	print_numbers(&stack1_head);
+	printf("--------------------------\n");
+	order_stack(&stack1_head, &stack2_head);
         printf("Stack 1:\n");
-        print_numbers(&stack1_first);
-        printf("Stack 2:\n");
-        print_numbers(&stack2_first);
+        print_numbers(&stack1_head);
 
 	if (argc == 2)
 		free_list(argv);
-	free_stack(&stack1_first);
+	free_stack(&stack1_head);
         return (0);
 }

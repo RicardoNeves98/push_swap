@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/15 19:02:59 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:11:53 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ char	**ft_split(char const *s, char c)
 	}
 	word_list[word_number] = NULL;
 	return (word_list);
+}
+
+// Get the size of a linked list 
+int     stack_size(t_list **stack)
+{
+	int     count;
+	t_list  *node1;
+
+	count = 0;
+	node1 = *stack;
+	while(node1)
+	{
+		count++;
+		node1 = (node1)->next;
+	}
+	return (count);
+}
+
+// Get last node rank value 
+int	get_last_rank(t_list **stack)
+{
+	t_list	*node;
+
+	node = *stack;
+	while (node->next)
+		node = node->next;
+	return (node->rank);
 }
