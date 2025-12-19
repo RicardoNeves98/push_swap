@@ -12,13 +12,15 @@
 
 #include "push_swap.h"
 
-void	move_cheapest_node(t_list **stack1, t_list **stack2, int size1, int size2)
+void	move_cheap_node(t_list **stack1, t_list **stack2)
 {
-	t_list	*cheapest_node;
-	
-	cheapest_node = NULL;
+	int	size2;
+	t_list	*cheap_node;
+		
+	size2 = stack_size(stack2);
+	cheap_node = NULL;
 	if (size2 > 1)
-		cheapest_node = get_cheapest_node(stack1, stack2);
+		cheap_node = get_cheap_node(stack1, stack2);
 	else
 	{
 		push_sideways(stack2, stack1, 'b');
@@ -26,14 +28,14 @@ void	move_cheapest_node(t_list **stack1, t_list **stack2, int size1, int size2)
 			order_small(stack2, 'b');
 		return ;
 	}
-	if (cheapest_node->move_type == 1)
-		moves_type1(cheapest_node, stack1, stack2);
-	else if (cheapest_node->move_type == 2)
-		moves_type2(cheapest_node, stack1, stack2, size1, size2);
-	else if (cheapest_node->move_type == 3)
-		moves_type3(cheapest_node, stack1, stack2, size2);
-	else if (cheapest_node->move_type == 4)
-		moves_type4(cheapest_node, stack1, stack2, size1);
+	if (cheap_node->move_type == 1)
+		moves_type1(cheap_node, stack1, stack2);
+	else if (cheap_node->move_type == 2)
+		moves_type2(cheap_node, stack1, stack2);
+	else if (cheap_node->move_type == 3)
+		moves_type3(cheap_node, stack1, stack2);
+	else if (cheap_node->move_type == 4)
+		moves_type4(cheap_node, stack1, stack2);
 	push_sideways(stack2, stack1, 'b');
 }
 
@@ -43,7 +45,7 @@ void	moves_type1(t_list *node, t_list **stack1, t_list **stack2)
 	int	ra_moves;
 	int	rb_moves;
 
-	rr_moves = MIN(node->node_ra, node->target_ra);
+	rr_moves = min(node->node_ra, node->target_ra);
 	ra_moves = node->node_ra - node->target_ra;
 	rb_moves = 0;
 	if (ra_moves < 0)
@@ -59,13 +61,17 @@ void	moves_type1(t_list *node, t_list **stack1, t_list **stack2)
 		rotate_up(NULL, stack2);
 }
 
-void	moves_type2(t_list *node, t_list **stack1, t_list **stack2, int size1, int size2)
+void	moves_type2(t_list *node, t_list **stack1, t_list **stack2)
 {
+	int	size1;
+	int	size2;
         int     rrr_moves;
         int     rrb_moves;
         int     rra_moves;
 
-        rrr_moves = MIN(size1 - node->node_ra, size1 - node->target_ra);
+	size1 = stack_size(stack1);
+	size2 = stack_size(stack2);
+        rrr_moves = min(size1 - node->node_ra, size2 - node->target_ra);
         rra_moves = (size1 - node->node_ra) - (size2 - node->target_ra);
         rrb_moves = 0;
         if (rra_moves < 0)
@@ -81,11 +87,13 @@ void	moves_type2(t_list *node, t_list **stack1, t_list **stack2, int size1, int 
                 rotate_down(NULL, stack2);
 }
 
-void	moves_type3(t_list *node, t_list **stack1, t_list **stack2, int size2)
+void	moves_type3(t_list *node, t_list **stack1, t_list **stack2)
 {
+	int	size2;
 	int	ra_moves;
 	int	rrb_moves;
 
+	size2 = stack_size(stack2);
 	ra_moves = node->node_ra;
 	rrb_moves = size2 - node->target_ra;
 	while (ra_moves--)
@@ -94,11 +102,13 @@ void	moves_type3(t_list *node, t_list **stack1, t_list **stack2, int size2)
 		rotate_down(NULL, stack2);
 }
 
-void	moves_type4(t_list *node, t_list **stack1, t_list **stack2, int size1)
+void	moves_type4(t_list *node, t_list **stack1, t_list **stack2)
 {
+	int	size1;
 	int	rra_moves;
 	int	rb_moves;
-
+	
+	size1 = stack_size(stack1);
 	rra_moves = size1 - node->node_ra;
 	rb_moves = node->target_ra;
 	while (rra_moves--)

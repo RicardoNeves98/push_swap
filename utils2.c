@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-// This file only contains ft_split function 
+// The next three functions are for split 
 int	get_word_number(char const *s, char c)
 {
 	int	index;
@@ -83,29 +83,25 @@ char	**ft_split(char const *s, char c)
 	return (word_list);
 }
 
-// Get the size of a linked list 
-int     stack_size(t_list **stack)
+// Functions to free the list of arguments and the stack 
+void    free_list(char **list)
 {
-	int     count;
-	t_list  *node1;
+        int     i;
 
-	count = 0;
-	node1 = *stack;
-	while(node1)
-	{
-		count++;
-		node1 = (node1)->next;
-	}
-	return (count);
+        i = 0;
+        while (list[i])
+                free(list[i++]);
+        free(list);
 }
 
-// Get last node rank value 
-int	get_last_rank(t_list **stack)
+void	free_stack(t_list **stack)
 {
-	t_list	*node;
+	t_list	*next_node;
 
-	node = *stack;
-	while (node->next)
-		node = node->next;
-	return (node->rank);
+	while (*stack)
+	{
+		next_node = (*stack)->next;
+		free(*stack);
+		*stack = next_node;
+	}
 }

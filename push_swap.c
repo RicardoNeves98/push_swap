@@ -47,6 +47,8 @@ t_list	*define_node(t_list *node, int number)
 	next_node->diff = 0;
 	next_node->cost = 0;
 	next_node->move_type = 0;
+	next_node->node_ra = 0;
+	next_node->target_ra = 0;
 	next_node->next = NULL;
 	if (node)
 		node->next = next_node;
@@ -80,6 +82,7 @@ void	define_rank(t_list **stack, int list_len)
 	}
 }
 
+/*
 void	print_numbers(t_list **stack)
 {
 	t_list	*node;
@@ -90,6 +93,22 @@ void	print_numbers(t_list **stack)
 		printf("Number %d <-> Rank %d\n", node->number, node->rank);
 		node = node->next;
 	}
+}
+*/
+
+int	check_list(char **argv, int argc, int i)
+{
+	while (argv[++i])
+	{
+		if (!check_integer(argv[i]) || !check_repetition(argv, i))
+		{
+			if (argc == 2)
+				free_list(argv);
+			write(2, "Error", 5);
+			return (0);
+		}
+	}
+	return (1);
 }
 
 int     main(int argc, char **argv)
@@ -109,27 +128,12 @@ int     main(int argc, char **argv)
                 argv = ft_split(argv[1], ' ');
                 i = -1;
         }
-        while (argv[++i])
-        {
-                if (!check_integer(argv[i]) || !check_repetition(argv, i))
-                {
-                        if (argc == 2)
-                                free_list(argv);
-                        write(2, "Error", 5);
-                        return (0);
-                }
-        }
+	if (!check_list(argv, argc, i))
+		return (argv = NULL, 0);
         stack1_head = initialize_struct(argv, argc);
 	stack2_head = NULL;
 	define_rank(&stack1_head, list_len);
-
-	printf("Stack 1:\n");
-	print_numbers(&stack1_head);
-	printf("--------------------------\n");
 	order_stack(&stack1_head, &stack2_head);
-        printf("Stack 1:\n");
-        print_numbers(&stack1_head);
-
 	if (argc == 2)
 		free_list(argv);
 	free_stack(&stack1_head);

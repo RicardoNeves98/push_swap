@@ -55,45 +55,63 @@ void    order_small(t_list **stack, char c)
 	}
 }
 
-void	back_to_stack(t_list **stack1, t_list **stack2, int size2)
+void    rotate_stack(t_list **stack, int size)
+{
+        int     ra_moves;
+        int     rra_moves;
+
+        ra_moves = get_min_position(stack);
+        rra_moves = size - ra_moves;
+        if (ra_moves < rra_moves)
+                while (ra_moves--)
+                        rotate_up(NULL, stack);
+        else
+                while (rra_moves--)
+                        rotate_down(NULL, stack);
+}
+
+void	back_to_stack(t_list **stack1, t_list **stack2)
 {
 	int	last_rank;
+	int	count;
 
-	while (size2 > 0)
+	count = 0;
+	last_rank = get_last_rank(stack1);
+	while (*stack2)
 	{
-		last_rank = get_last_rank(stack1);
-		while (last_rank < (*stack2)->rank)
-		{
+		while (*stack2 && last_rank < (*stack2)->rank)
 			push_sideways(stack1, stack2, 'a');
-			size2--;
+		if (count < 3)
+		{
+			rotate_down(stack1, NULL);
+			count++;
+			if (count < 3)
+				last_rank = get_last_rank(stack1);
+			else
+				last_rank = 0;
 		}
-		rotate_down(stack1, NULL);
 	}
+	while (count++ < 3)
+		rotate_down(stack1, NULL);
 }
 
 void	order_stack(t_list **stack1, t_list **stack2)
 {
 	int	size1;
 	int	size2;
-	int	ra_moves;
-	int	rra_moves;
 
 	size1 = stack_size(stack1);
 	size2 = stack_size(stack2);
 	while (size1 > 3)
-		move_cheapest_node(stack1, stack2, size1--, size2++);
+	{
+		move_cheap_node(stack1, stack2);
+		size1--;
+		size2++;
+	}
 	if (size1 > 1)
 		order_small(stack1, 'a');
 	if (size2 == 0)
 		return ;
-	back_to_stack(stack1, stack2, size2);
-	size1 = stack_size(stack1);
-	ra_moves = get_min_position(stack1) - 1;
-	rra_moves = size1 - ra_moves;
-	if (ra_moves < rra_moves)
-		while (ra_moves--)
-			rotate_up(stack1, NULL);
-	else
-		while (rra_moves--)
-			rotate_down(stack1, NULL);
+	rotate_stack(stack2, size2);
+	back_to_stack(stack1, stack2);
 }
