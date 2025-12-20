@@ -14,22 +14,24 @@
 
 t_list	*initialize_struct(char **num_list, int argc)
 {
-	int	i;
+	int		i;
 	t_list	*first_node;
 	t_list	*node;
 
 	i = 0;
 	if (argc > 2)
 		i = 1;
+	if (!num_list[i])
+		return (free_stuff(num_list, NULL, argc), NULL);
 	node = define_node(NULL, ft_atoi(num_list[i++]));
 	if (!node)
-		return (free_list(num_list), NULL);
+		return (free_stuff(num_list, NULL, argc), NULL);
 	first_node = node;
 	while (num_list[i])
 	{
 		node = define_node(node, ft_atoi(num_list[i++]));
 		if (!node)
-			return (free_list(num_list), free_stack(&first_node), NULL);
+			return (free_stuff(num_list, &first_node, argc), NULL);
 	}
 	node->next = NULL;
 	return (first_node);
@@ -57,7 +59,7 @@ t_list	*define_node(t_list *node, int number)
 
 void	define_rank(t_list **stack, int list_len)
 {
-	int	rank;
+	int		rank;
 	t_list	*node;
 	t_list	*min_node;
 	t_list	*next_node;
@@ -72,8 +74,8 @@ void	define_rank(t_list **stack, int list_len)
 		while (node)
 		{
 			next_node = node->next;
-			if (next_node && next_node->rank == 0 && 
-					next_node->number < min_node->number)
+			if (next_node && next_node->rank == 0
+				&& next_node->number < min_node->number)
 				min_node = next_node;
 			node = next_node;
 		}
@@ -102,8 +104,7 @@ int	check_list(char **argv, int argc, int i)
 	{
 		if (!check_integer(argv[i]) || !check_repetition(argv, i))
 		{
-			if (argc == 2)
-				free_list(argv);
+			free_stuff(argv, NULL, argc);
 			write(2, "Error", 5);
 			return (0);
 		}
@@ -111,31 +112,31 @@ int	check_list(char **argv, int argc, int i)
 	return (1);
 }
 
-int     main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int	i;
-	int	list_len;
+	int		i;
+	int		list_len;
 	t_list	*stack1_head;
 	t_list	*stack2_head;
 
-        i = 0;
+	i = 0;
 	list_len = argc - 1;
-        if (argc == 1)
-                return (0);
-        else if (argc == 2)
-        {
+	if (argc == 1)
+		return (0);
+	else if (argc == 2)
+	{
 		list_len = get_word_number(argv[1], ' ');
-                argv = ft_split(argv[1], ' ');
-                i = -1;
-        }
+		argv = ft_split(argv[1], ' ');
+		i = -1;
+	}
 	if (!check_list(argv, argc, i))
-		return (argv = NULL, 0);
-        stack1_head = initialize_struct(argv, argc);
+		return (0);
+	stack1_head = initialize_struct(argv, argc);
+	if (!stack1_head)
+		return (0);
 	stack2_head = NULL;
 	define_rank(&stack1_head, list_len);
 	order_stack(&stack1_head, &stack2_head);
-	if (argc == 2)
-		free_list(argv);
-	free_stack(&stack1_head);
-        return (0);
+	free_stuff(argv, &stack1_head, argc);
+	return (0);
 }

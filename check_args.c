@@ -28,7 +28,7 @@ int	check_integer(char *num_str)
 	else if (num_str[0] == '-')
 		sign = -1;
 	while (num_str[++i])
-		if (num_str[i] < '0' || num_str[i] > '9') 
+		if (num_str[i] < '0' || num_str[i] > '9')
 			return (0);
 	if (str_len < 10 + (sign % 2))
 		return (1);
@@ -42,15 +42,15 @@ int	cmp_lim(char *num_str, int sign)
 	int	diff;
 
 	diff = 0;
-        if (sign == 0)
-                diff = ft_strcmp("2147483647", num_str);
-        else if (sign == 1)
-                diff = ft_strcmp("+2147483647", num_str);
-        else if (sign == -1)
+	if (sign == 0)
+		diff = ft_strcmp("2147483647", num_str);
+	else if (sign == 1)
+		diff = ft_strcmp("+2147483647", num_str);
+	else if (sign == -1)
 		diff = ft_strcmp("-2147483647", num_str);
-        if (diff >= 0)
-                return (1);
-        return (0);
+	if (diff >= 0)
+		return (1);
+	return (0);
 }
 
 int	check_repetition(char **argv, int i)

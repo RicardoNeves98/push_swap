@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-// The next three functions are for split 
 int	get_word_number(char const *s, char c)
 {
 	int	index;
@@ -83,25 +82,25 @@ char	**ft_split(char const *s, char c)
 	return (word_list);
 }
 
-// Functions to free the list of arguments and the stack 
-void    free_list(char **list)
+void	free_stuff(char **list, t_list **stack, int argc)
 {
-        int     i;
-
-        i = 0;
-        while (list[i])
-                free(list[i++]);
-        free(list);
-}
-
-void	free_stack(t_list **stack)
-{
+	int		i;
 	t_list	*next_node;
 
-	while (*stack)
+	i = 0;
+	if (list && argc == 2)
 	{
-		next_node = (*stack)->next;
-		free(*stack);
-		*stack = next_node;
+		while (list[i])
+			free(list[i++]);
+		free(list);
+	}
+	if (stack)
+	{
+		while (*stack)
+		{
+			next_node = (*stack)->next;
+			free(*stack);
+			*stack = next_node;
+		}
 	}
 }

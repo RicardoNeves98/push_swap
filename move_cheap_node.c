@@ -14,9 +14,9 @@
 
 void	move_cheap_node(t_list **stack1, t_list **stack2)
 {
-	int	size2;
+	int		size2;
 	t_list	*cheap_node;
-		
+
 	size2 = stack_size(stack2);
 	cheap_node = NULL;
 	if (size2 > 1)
@@ -65,26 +65,26 @@ void	moves_type2(t_list *node, t_list **stack1, t_list **stack2)
 {
 	int	size1;
 	int	size2;
-        int     rrr_moves;
-        int     rrb_moves;
-        int     rra_moves;
+	int	rrr_moves;
+	int	rrb_moves;
+	int	rra_moves;
 
 	size1 = stack_size(stack1);
 	size2 = stack_size(stack2);
-        rrr_moves = min(size1 - node->node_ra, size2 - node->target_ra);
-        rra_moves = (size1 - node->node_ra) - (size2 - node->target_ra);
-        rrb_moves = 0;
-        if (rra_moves < 0)
-        {
-                rrb_moves = -rra_moves;
-                rra_moves = 0;
-        }
-        while (rrr_moves--)
-                rotate_down(stack1, stack2);
-        while (rra_moves--)
-                rotate_down(stack1, NULL);
-        while (rrb_moves--)
-                rotate_down(NULL, stack2);
+	rrr_moves = min(size1 - node->node_ra, size2 - node->target_ra);
+	rra_moves = (size1 - node->node_ra) - (size2 - node->target_ra);
+	rrb_moves = 0;
+	if (rra_moves < 0)
+	{
+		rrb_moves = -rra_moves;
+		rra_moves = 0;
+	}
+	while (rrr_moves--)
+		rotate_down(stack1, stack2);
+	while (rra_moves--)
+		rotate_down(stack1, NULL);
+	while (rrb_moves--)
+		rotate_down(NULL, stack2);
 }
 
 void	moves_type3(t_list *node, t_list **stack1, t_list **stack2)
@@ -107,7 +107,7 @@ void	moves_type4(t_list *node, t_list **stack1, t_list **stack2)
 	int	size1;
 	int	rra_moves;
 	int	rb_moves;
-	
+
 	size1 = stack_size(stack1);
 	rra_moves = size1 - node->node_ra;
 	rb_moves = node->target_ra;

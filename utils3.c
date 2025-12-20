@@ -12,15 +12,14 @@
 
 #include "push_swap.h"
 
-// Get the size of a linked list 
-int     stack_size(t_list **stack)
+int	stack_size(t_list **stack)
 {
-	int     count;
-	t_list  *node;
+	int		count;
+	t_list	*node;
 
 	count = 0;
 	node = *stack;
-	while(node)
+	while (node)
 	{
 		count++;
 		node = (node)->next;
@@ -28,10 +27,9 @@ int     stack_size(t_list **stack)
 	return (count);
 }
 
-// Get last node rank value 
-int     get_last_rank(t_list **stack)
+int	get_last_rank(t_list **stack)
 {
-	t_list  *node;
+	t_list	*node;
 
 	node = *stack;
 	while (node->next)
@@ -39,15 +37,13 @@ int     get_last_rank(t_list **stack)
 	return (node->rank);
 }
 
-// Get the max between two numbers
-int	max(int	number1, int number2)
+int	max(int number1, int number2)
 {
 	if (number1 > number2)
 		return (number1);
 	return (number2);
 }
 
-// Get the min between two numbers 
 int	min(int number1, int number2)
 {
 	if (number1 < number2)

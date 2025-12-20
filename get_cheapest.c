@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-int     get_min_diff(t_list **stack, int start_value)
+int	get_min_diff(t_list **stack, int start_value)
 {
-	int     min;
-	int     count;
-	int     position;
-	t_list  *node;
+	int		min;
+	int		count;
+	int		position;
+	t_list	*node;
 
 	node = *stack;
 	count = 0;
@@ -39,15 +39,15 @@ int     get_min_diff(t_list **stack, int start_value)
 /*
 total1 -> Total moves using normal rotation on both stack  
 total2 -> Total moves using reverse rotation on both stack 
-total3 -> Total moves using normal rotation on stack A and reverse rotation on stack B  
-total4 -> Total moves using reverse rotation on stack A and reverse rotation on stack B 
+total3 -> Total moves using rotation on stack A and reverse rotation on stack B  
+total4 -> Total moves using reverse rotation on stack A and rotation on stack B 
 */
-int     get_cheap_path(t_list *node1, int stack1_len, int stack2_len)
+int	get_cheap_path(t_list *node1, int stack1_len, int stack2_len)
 {
-	int     total1;
-	int     total2;
-	int     total3;
-	int     total4;
+	int	total1;
+	int	total2;
+	int	total3;
+	int	total4;
 	int	min_total;
 
 	total1 = max(node1->node_ra, node1->target_ra);
@@ -65,13 +65,13 @@ int     get_cheap_path(t_list *node1, int stack1_len, int stack2_len)
 		node1->move_type = 4;
 	return (min_total);
 }
- 	
-void    update_cost(t_list **stack1, t_list **stack2, int size1, int size2)
+
+void	update_cost(t_list **stack1, t_list **stack2, int size1, int size2)
 {
-	int     moves_curr_node;
-	int     moves_target_node;
-	t_list  *node1;
-	t_list  *node2;
+	int		moves_curr_node;
+	int		moves_target_node;
+	t_list	*node1;
+	t_list	*node2;
 
 	node1 = *stack1;
 	moves_curr_node = 0;
@@ -96,17 +96,17 @@ void    update_cost(t_list **stack1, t_list **stack2, int size1, int size2)
 
 t_list	*get_cheap_node(t_list **stack1, t_list **stack2)
 {
-	int     min;
-	int	size1;
-	int	size2;
+	int		min;
+	int		size1;
+	int		size2;
 	t_list	*node;
-	t_list  *min_node;
+	t_list	*min_node;
 
 	size1 = stack_size(stack1);
 	size2 = stack_size(stack2);
 	node = *stack1;
 	min_node = node;
-        update_cost(stack1, stack2, size1, size2);
+	update_cost(stack1, stack2, size1, size2);
 	min = node->cost;
 	while (node->next)
 	{

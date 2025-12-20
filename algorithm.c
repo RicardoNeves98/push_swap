@@ -14,9 +14,9 @@
 
 int	get_min_position(t_list **stack)
 {
-	int	min;
-	int	count;
-	int	position;
+	int		min;
+	int		count;
+	int		position;
 	t_list	*node;
 
 	node = *stack;
@@ -36,38 +36,38 @@ int	get_min_position(t_list **stack)
 	return (position);
 }
 
-void    order_small(t_list **stack, char c)
+void	order_small(t_list **stack, char c)
 {
-	int     min_position;
+	int	min_position;
 
 	min_position = get_min_position(stack);
 	if (stack_size(stack) == 2 && min_position == 2)
-        	swap_first_two(stack, c);
+		swap_first_two(stack, c);
 	else if (stack_size(stack) == 3)
 	{
-        	if (min_position == 1)
-                	rotate_up(stack, NULL);
-        	else if (min_position == 2)
-                	rotate_down(stack, NULL);
-        	if ((*stack)->number > ((*stack)->next)->number)
-                	swap_first_two(stack, c);
-        	rotate_down(stack, NULL);
+		if (min_position == 1)
+			rotate_up(stack, NULL);
+		else if (min_position == 2)
+			rotate_down(stack, NULL);
+		if ((*stack)->number > ((*stack)->next)->number)
+			swap_first_two(stack, c);
+		rotate_down(stack, NULL);
 	}
 }
 
-void    rotate_stack(t_list **stack, int size)
+void	rotate_stack(t_list **stack, int size)
 {
-        int     ra_moves;
-        int     rra_moves;
+	int	ra_moves;
+	int	rra_moves;
 
-        ra_moves = get_min_position(stack);
-        rra_moves = size - ra_moves;
-        if (ra_moves < rra_moves)
-                while (ra_moves--)
-                        rotate_up(NULL, stack);
-        else
-                while (rra_moves--)
-                        rotate_down(NULL, stack);
+	ra_moves = get_min_position(stack);
+	rra_moves = size - ra_moves;
+	if (ra_moves < rra_moves)
+		while (ra_moves--)
+			rotate_up(NULL, stack);
+	else
+		while (rra_moves--)
+			rotate_down(NULL, stack);
 }
 
 void	back_to_stack(t_list **stack1, t_list **stack2)
