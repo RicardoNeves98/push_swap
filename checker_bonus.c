@@ -54,7 +54,7 @@ t_list	*define_node(t_list *node, int number)
 void	check_stacks(t_list **stack1, t_list **stack2)
 {
 	int	curr_num;
-	
+
 	if (*stack2)
 	{
 		write(2, "KO\n", 3);

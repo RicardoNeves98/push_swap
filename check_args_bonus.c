@@ -12,9 +12,9 @@
 
 #include "push_swap_bonus.h"
 
-int     ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	while (s1[i] && s2[i])
@@ -90,7 +90,7 @@ int	check_repetition(char **argv, int i)
 	return (1);
 }
 
-int     check_list(char **argv, int argc, int i)
+int	check_list(char **argv, int argc, int i)
 {
 	while (argv[++i])
 	{

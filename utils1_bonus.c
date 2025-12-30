@@ -72,13 +72,13 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char    *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int             i;
-	int             j;
-	int             size1;
-	int             size2;
-	char    *s;
+	int		i;
+	int		j;
+	int		size1;
+	int		size2;
+	char	*s;
 
 	i = -1;
 	j = -1;
@@ -94,11 +94,11 @@ char    *ft_strjoin(char *s1, char *s2)
 	return (free(s1), free(s2), s);
 }
 
-int     ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
-	int     i;
-	int     sign;
-	int     result;
+	int	i;
+	int	sign;
+	int	result;
 
 	i = 0;
 	sign = 1;

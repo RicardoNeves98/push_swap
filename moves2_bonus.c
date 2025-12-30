@@ -36,7 +36,7 @@ char	**get_move_list(void)
 	char	*buffer;
 	char	*moves_str;
 	char	**moves_lst;
-	
+
 	moves_str = NULL;
 	while (1)
 	{
@@ -61,18 +61,18 @@ char	**get_move_list(void)
 
 int	apply_move_list(t_list **stack1, t_list **stack2)
 {
-	int             i;
+	int		i;
 	char	**moves_lst;
 
 	i = -1;
 	moves_lst = get_move_list();
 	if (!moves_lst)
 		return (1);
-	while (!moves_lst[++i])
+	while (moves_lst[++i])
 	{
 		if (!perform_move(stack1, stack2, moves_lst[i]))
 		{
-			while (!moves_lst[i])
+			while (moves_lst[i])
 				free(moves_lst[i++]);
 			return (free(moves_lst), 0);
 		}

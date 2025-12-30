@@ -84,20 +84,6 @@ void	define_rank(t_list **stack, int list_len)
 	}
 }
 
-/*
-void	print_numbers(t_list **stack)
-{
-	t_list	*node;
-
-	node = *stack;
-	while (node)
-	{
-		printf("Number %d <-> Rank %d\n", node->number, node->rank);
-		node = node->next;
-	}
-}
-*/
-
 int	check_list(char **argv, int argc, int i)
 {
 	while (argv[++i])
@@ -105,7 +91,7 @@ int	check_list(char **argv, int argc, int i)
 		if (!check_integer(argv[i]) || !check_repetition(argv, i))
 		{
 			free_stuff(argv, NULL, argc);
-			write(2, "Error", 5);
+			write(2, "Error\n", 6);
 			return (0);
 		}
 	}

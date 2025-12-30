@@ -14,8 +14,8 @@
 
 void	rotate_up(t_list **stack)
 {
-	t_list  *node1;
-	t_list  *last_node;
+	t_list	*node1;
+	t_list	*last_node;
 
 	node1 = *stack;
 	last_node = *stack;
@@ -28,8 +28,8 @@ void	rotate_up(t_list **stack)
 
 void	rotate_down(t_list **stack)
 {
-	t_list  *prev_last_node;
-	t_list  *last_node;
+	t_list	*prev_last_node;
+	t_list	*last_node;
 
 	prev_last_node = *stack;
 	while ((prev_last_node->next)->next)
@@ -42,8 +42,8 @@ void	rotate_down(t_list **stack)
 
 void	swap_first_two(t_list **stack)
 {
-	t_list  *node2;
-	t_list  *node3;
+	t_list	*node2;
+	t_list	*node3;
 
 	if (stack_size(stack) < 2)
 		return ;
@@ -54,9 +54,9 @@ void	swap_first_two(t_list **stack)
 	*stack = node2;
 }
 
-void    push_sideways(t_list **get_stack, t_list **give_stack)
+void	push_sideways(t_list **get_stack, t_list **give_stack)
 {
-	t_list  *give_node2;
+	t_list	*give_node2;
 
 	if (!(*give_stack))
 		return ;

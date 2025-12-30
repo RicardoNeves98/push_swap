@@ -82,19 +82,19 @@ char	**ft_split(char const *s, char c)
 	return (word_list);
 }
 
-int     stack_size(t_list **stack)
+int	stack_size(t_list **stack)
 {
-        int             count;
-        t_list  *node;
+	int		count;
+	t_list	*node;
 
-        count = 0;
-        node = *stack;
-        while (node)
-        {
-                count++;
-                node = (node)->next;
-        }
-        return (count);
+	count = 0;
+	node = *stack;
+	while (node)
+	{
+		count++;
+		node = (node)->next;
+	}
+	return (count);
 }
 
 void	free_stuff(char **list, t_list **stack, int argc)
