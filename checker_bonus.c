@@ -57,7 +57,7 @@ void	check_stacks(t_list **stack1, t_list **stack2)
 	
 	if (*stack2)
 	{
-		write(1, "KO\n", 3);
+		write(2, "KO\n", 3);
 		return ;
 	}
 	curr_num = (*stack1)->number;
@@ -66,7 +66,7 @@ void	check_stacks(t_list **stack1, t_list **stack2)
 		*stack1 = (*stack1)->next;
 		if ((*stack1)->number < curr_num)
 		{
-			write(1, "KO\n", 3);
+			write(2, "KO\n", 3);
 			return ;
 		}
 		curr_num = (*stack1)->number;
@@ -78,17 +78,14 @@ void	check_stacks(t_list **stack1, t_list **stack2)
 int	main(int argc, char **argv)
 {
 	int		i;
-	int		list_len;
 	t_list	*stack1_head;
 	t_list	*stack2_head;
 
 	i = 0;
-	list_len = argc - 1;
 	if (argc == 1)
 		return (0);
 	else if (argc == 2)
 	{
-		list_len = get_word_number(argv[1], ' ');
 		argv = ft_split(argv[1], ' ');
 		i = -1;
 	}
@@ -98,7 +95,8 @@ int	main(int argc, char **argv)
 	if (!stack1_head)
 		return (0);
 	stack2_head = NULL;
-	apply_move_list(&stack1_head, &stack2_head);
+	if (!apply_move_list(&stack1_head, &stack2_head))
+		return (write(2, "ERROR\n", 6), 0);
 	check_stacks(&stack1_head, &stack2_head);
 	free_stuff(argv, &stack1_head, argc);
 	return (0);

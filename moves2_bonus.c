@@ -30,59 +30,53 @@ void	swap_first_two_both(t_list **stack1, t_list **stack2)
 	swap_first_two(stack2);
 }
 
-void    perform_move(t_list **stack1, t_list **stack2, char *move)
+char	**get_move_list(void)
 {
-	if (!ft_strcmp(move, "sa"))
-		swap_first_two(stack1);
-	else if (!ft_strcmp(move, "sb"))
-		swap_first_two(stack2);
-	else if (!ft_strcmp(move, "ss"))
-		swap_first_two_both(stack1, stack2);
-	else if (!ft_strcmp(move, "pa"))
-		push_sideways(stack1, stack2);
-	else if (!ft_strcmp(move, "pb"))
-		push_sideways(stack1, stack2);
-	else if (!ft_strcmp(move, "ra"))
-		rotate_up(stack1);
-	else if (!ft_strcmp(move, "rb"))
-		rotate_up(stack2);
-	else if (!ft_strcmp(move, "rr"))
-		rotate_up_both(stack1, stack2);
-	else if (!ft_strcmp(move, "rra"))
-		rotate_down(stack1);
-	else if (!ft_strcmp(move, "rrb"))
-		rotate_down(stack2);
-	else if (!ft_strcmp(move, "rrr"))
-		rotate_down_both(stack1, stack2);
-}
-
-void	apply_move_list(t_list **stack1, t_list **stack2)
-{
-	int             i;
-	int             bytes_read;
-	char    buffer[1024];
-	char    *moves_str;
-	char    **moves_lst;
-
-	i = 0;
+	int		bytes_read;
+	char	*buffer;
+	char	*moves_str;
+	char	**moves_lst;
+	
 	moves_str = NULL;
 	while (1)
 	{
-		bytes_read = read(0, buffer, sizeof(buffer));
+		buffer = ft_calloc(42);
+		if (!buffer)
+			return (free(moves_str), NULL);
+		bytes_read = read(0, buffer, 42);
 		if (bytes_read <= 0)
-			break ;
-		moves_str = ft_strjoin(moves_str, buffer);
-		if (!moves_str) // Think what it should return in case allocation fails 
 		{
-			free(moves_str);
-			return ;
+			if (bytes_read < 0)
+				return (free(buffer), free(moves_str), NULL);
+			free(buffer);
+			break ;
 		}
+		moves_str = ft_strjoin(moves_str, buffer);
+		if (!moves_str)
+			return (NULL);
 	}
-	moves_lst = ft_split(moves_str, ' ');
-	while (!moves_lst[i])
+	moves_lst = ft_split(moves_str, '\n');
+	return (free(moves_str), moves_lst);
+}
+
+int	apply_move_list(t_list **stack1, t_list **stack2)
+{
+	int             i;
+	char	**moves_lst;
+
+	i = -1;
+	moves_lst = get_move_list();
+	if (!moves_lst)
+		return (1);
+	while (!moves_lst[++i])
 	{
-		perform_move(stack1, stack2, moves_lst[i++]);
+		if (!perform_move(stack1, stack2, moves_lst[i]))
+		{
+			while (!moves_lst[i])
+				free(moves_lst[i++]);
+			return (free(moves_lst), 0);
+		}
 		free(moves_lst[i]);
 	}
-	free(moves_lst);
+	return (free(moves_lst), 1);
 }

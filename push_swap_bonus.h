@@ -46,12 +46,13 @@ void	rotate_up(t_list **stack);
 void	rotate_down(t_list **stack);
 void	swap_first_two(t_list **stack);
 void	push_sideways(t_list **get_stack, t_list **give_stack);
+int		perform_move(t_list **stack1, t_list **stack2, char *move);
 // moves2_bonus.c 
 void	rotate_up_both(t_list **stack1, t_list **stack2);
 void	rotate_down_both(t_list **stack1, t_list **stack2);
 void	swap_first_two_both(t_list **stack1, t_list **stack2);
-void	perform_move(t_list **stack1, t_list **stack2, char *move);
-void	apply_move_list(t_list **stack1, t_list **stack2);
+char	**get_move_list(void);
+int		apply_move_list(t_list **stack1, t_list **stack2);
 // checker_bonus.c
 t_list	*initialize_struct(char **num_list, int argc);
 t_list	*define_node(t_list *node, int number);

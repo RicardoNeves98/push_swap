@@ -86,12 +86,12 @@ char    *ft_strjoin(char *s1, char *s2)
 	size2 = ft_strlen(s2);
 	s = ft_calloc(size1 + size2 + 1);
 	if (!s)
-		return (free(s1), NULL);
+		return (free(s1), free(s2), NULL);
 	while (++i < size1)
 		s[i] = s1[i];
 	while (++j < size2)
 		s[i + j] = s2[j];
-	return (free(s1), s);
+	return (free(s1), free(s2), s);
 }
 
 int     ft_atoi(const char *nptr)

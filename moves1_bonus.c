@@ -65,3 +65,31 @@ void    push_sideways(t_list **get_stack, t_list **give_stack)
 	*get_stack = *give_stack;
 	*give_stack = give_node2;
 }
+
+int	perform_move(t_list **stack1, t_list **stack2, char *move)
+{
+	if (!ft_strcmp(move, "sa"))
+		return (swap_first_two(stack1), 1);
+	else if (!ft_strcmp(move, "sb"))
+		return (swap_first_two(stack2), 1);
+	else if (!ft_strcmp(move, "ss"))
+		return (swap_first_two_both(stack1, stack2), 1);
+	else if (!ft_strcmp(move, "pa"))
+		return (push_sideways(stack1, stack2), 1);
+	else if (!ft_strcmp(move, "pb"))
+		return (push_sideways(stack2, stack1), 1);
+	else if (!ft_strcmp(move, "ra"))
+		return (rotate_up(stack1), 1);
+	else if (!ft_strcmp(move, "rb"))
+		return (rotate_up(stack2), 1);
+	else if (!ft_strcmp(move, "rr"))
+		return (rotate_up_both(stack1, stack2), 1);
+	else if (!ft_strcmp(move, "rra"))
+		return (rotate_down(stack1), 1);
+	else if (!ft_strcmp(move, "rrb"))
+		return (rotate_down(stack2), 1);
+	else if (!ft_strcmp(move, "rrr"))
+		return (rotate_down_both(stack1, stack2), 1);
+	else
+		return (0);
+}
