@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/29 18:01:22 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 11:23:24 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,42 +80,4 @@ char	**ft_split(char const *s, char c)
 	}
 	word_list[word_number] = NULL;
 	return (word_list);
-}
-
-int	stack_size(t_list **stack)
-{
-	int		count;
-	t_list	*node;
-
-	count = 0;
-	node = *stack;
-	while (node)
-	{
-		count++;
-		node = (node)->next;
-	}
-	return (count);
-}
-
-void	free_stuff(char **list, t_list **stack, int argc)
-{
-	int		i;
-	t_list	*next_node;
-
-	i = 0;
-	if (list && argc == 2)
-	{
-		while (list[i])
-			free(list[i++]);
-		free(list);
-	}
-	if (stack)
-	{
-		while (*stack)
-		{
-			next_node = (*stack)->next;
-			free(*stack);
-			*stack = next_node;
-		}
-	}
 }

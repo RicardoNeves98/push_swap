@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/29 18:30:44 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 13:53:04 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,29 @@ t_list	*define_node(t_list *node, int number)
 	if (node)
 		node->next = next_node;
 	return (next_node);
+}
+
+int	check_list(char **argv, int argc, int i)
+{
+	int	check;
+
+	check = 1;
+	if (argc == 2 && !argv[0])
+		check = 0;
+	while (argv[++i])
+	{
+		if (!check_integer(argv[i]) || !check_repetition(argv, i))
+		{
+			check = 0;
+			break ;
+		}
+	}
+	if (check == 0)
+	{
+		free_stuff(argv, NULL, argc);
+		write(2, "Error\n", 6);
+	}
+	return (check);
 }
 
 void	check_stacks(t_list **stack1, t_list **stack2)

@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:54:43 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/29 18:25:24 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 13:51:35 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ size_t	ft_strlen(const char *s)
 	while (s[len])
 		len++;
 	return (len);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			break ;
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }
 
 char	*ft_calloc(size_t n)
@@ -92,24 +106,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (++j < size2)
 		s[i + j] = s2[j];
 	return (free(s1), free(s2), s);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	sign;
-	int	result;
-
-	i = 0;
-	sign = 1;
-	result = 0;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-		result = result * 10 + (nptr[i ++] - '0');
-	return (sign * result);
 }

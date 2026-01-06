@@ -6,25 +6,11 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:47:03 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/29 18:25:41 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 15:47:18 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			break ;
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
 
 int	check_integer(char *num_str)
 {
@@ -41,12 +27,14 @@ int	check_integer(char *num_str)
 		sign = 1;
 	else if (num_str[0] == '-')
 		sign = -1;
+	if (str_len == 1 && sign != 0)
+		return (0);
 	while (num_str[++i])
 		if (num_str[i] < '0' || num_str[i] > '9')
 			return (0);
-	if (str_len < 10 + (sign % 2))
+	if (str_len < 10 + ((sign + 2) % 2))
 		return (1);
-	else if (str_len > 10 + (sign % 2))
+	else if (str_len > 10 + ((sign + 2) % 2))
 		return (0);
 	return (cmp_lim(num_str, sign));
 }
@@ -67,39 +55,57 @@ int	cmp_lim(char *num_str, int sign)
 	return (0);
 }
 
-int	check_repetition(char **argv, int i)
+char	get_sign(char *str)
 {
-	int	j;
-	int	k;
+	int		i;
+	char	sign;
 
-	j = 0;
-	while (j < i)
-	{
-		k = 0;
-		while (argv[i][k] && argv[j][k])
-		{
-			if (argv[i][k] == argv[j][k])
-				k++;
-			else
-				break ;
-		}
-		if (!argv[i][k] && !argv[j][k])
-			return (0);
-		j++;
-	}
-	return (1);
+	i = 0;
+	sign = '+';
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
+		sign = str[i++];
+	while (str[i] && str[i] == '0')
+		i++;
+	if (!str[i])
+		return ('0');
+	return (sign);
 }
 
-int	check_list(char **argv, int argc, int i)
+int	pass_zeros(char *str)
 {
-	while (argv[++i])
+	int	i;
+
+	i = 0;
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
+		i++;
+	while (str[i] && str[i] == '0')
+		i++;
+	return (i);
+}
+
+int	check_repetition(char **argv, int i)
+{
+	int		j;
+	int		k;
+	int		w;
+	char	sign1;
+	char	sign2;
+
+	j = 0;
+	sign1 = get_sign(argv[i]);
+	while (j < i)
 	{
-		if (!check_integer(argv[i]) || !check_repetition(argv, i))
+		sign2 = get_sign(argv[j]);
+		k = pass_zeros(argv[i]);
+		w = pass_zeros(argv[j]);
+		while (argv[i][k] && argv[j][w] && (argv[i][k] == argv[j][w]))
 		{
-			free_stuff(argv, NULL, argc);
-			write(2, "Error", 5);
-			return (0);
+			k++;
+			w++;
 		}
+		if (!argv[i][k] && !argv[j][w] && (sign1 == sign2))
+			return (0);
+		j++;
 	}
 	return (1);
 }

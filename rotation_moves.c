@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:49:20 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 17:24:45 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 15:48:56 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	single_rotate_up(t_list **stack)
 {
 	t_list	*node1;
 	t_list	*last_node;
-
+	
+	if (stack_size(stack) < 2)
+		return ;
 	node1 = *stack;
 	last_node = *stack;
 	*stack = (*stack)->next;
@@ -31,6 +33,8 @@ void	single_rotate_down(t_list **stack)
 	t_list	*prev_last_node;
 	t_list	*last_node;
 
+	if (stack_size(stack) < 2)
+		return ;
 	prev_last_node = *stack;
 	while ((prev_last_node->next)->next)
 		prev_last_node = prev_last_node->next;

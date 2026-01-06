@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 11:55:55 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 18:48:16 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 13:50:01 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_min_diff(t_list **stack, int start_value)
 
 	node = *stack;
 	count = 0;
-	position = start_value;
+	position = get_min_position(stack);
 	min = start_value;
 	while (node)
 	{
@@ -36,12 +36,11 @@ int	get_min_diff(t_list **stack, int start_value)
 	return (position);
 }
 
-/*
-total1 -> Total moves using normal rotation on both stack  
-total2 -> Total moves using reverse rotation on both stack 
-total3 -> Total moves using rotation on stack A and reverse rotation on stack B  
-total4 -> Total moves using reverse rotation on stack A and rotation on stack B 
-*/
+// total1 -> Moves using normal rotation on both stack  
+// total2 -> Moves using reverse rotation on both stack 
+// total3 -> Moves using rotation on stack A and reverse rotation on stack B  
+// total4 -> Moves using reverse rotation on stack A and rotation on stack B 
+
 int	get_cheap_path(t_list *node1, int stack1_len, int stack2_len)
 {
 	int	total1;
@@ -84,8 +83,6 @@ void	update_cost(t_list **stack1, t_list **stack2, int size1, int size2)
 			node2 = node2->next;
 		}
 		moves_target_node = get_min_diff(stack2, size1 + size2 + 1);
-		if (moves_target_node == size1 + size2 + 1)
-			moves_target_node = get_min_position(stack2);
 		node1->node_ra = moves_curr_node;
 		node1->target_ra = moves_target_node;
 		node1->cost = get_cheap_path(node1, size1, size2);

@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:47:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 19:00:43 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 11:11:03 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		min(int number1, int number2);
 // check_args.c -> Check if the arguments given are correct 
 int		check_integer(char *num_str);
 int		cmp_lim(char *num_str, int sign);
+char	get_sign(char *str);
+int		pass_zeros(char *str);
 int		check_repetition(char **argv, int i);
 
 // swap_and_push.c -> Swap and Push moves  

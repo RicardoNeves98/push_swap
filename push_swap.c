@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 18:45:54 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 15:26:27 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,25 @@ void	define_rank(t_list **stack, int list_len)
 
 int	check_list(char **argv, int argc, int i)
 {
+	int	check;
+
+	check = 1;
+	if (argc == 2 && !argv[0])
+		check = 0;
 	while (argv[++i])
 	{
 		if (!check_integer(argv[i]) || !check_repetition(argv, i))
 		{
-			free_stuff(argv, NULL, argc);
-			write(2, "Error\n", 6);
-			return (0);
+			check = 0;
+			break ;
 		}
 	}
-	return (1);
+	if (check == 0)
+	{
+		free_stuff(argv, NULL, argc);
+		write(2, "Error\n", 6);
+	}
+	return (check);
 }
 
 int	main(int argc, char **argv)

@@ -3,7 +3,7 @@ NAME = push_swap
 BONUS = checker
 SRCS = utils1.c utils2.c utils3.c swap_and_push_moves.c rotation_moves.c \
 	push_swap.c move_cheap_node.c get_cheapest.c check_args.c algorithm.c 
-SRCS_BONUS = utils1_bonus.c utils2_bonus.c check_args_bonus.c moves1_bonus.c \
+SRCS_BONUS = utils1_bonus.c utils2_bonus.c utils3_bonus.c check_args_bonus.c moves1_bonus.c \
 	moves2_bonus.c checker_bonus.c 
 
 OBJS = $(SRCS:.c=.o)
