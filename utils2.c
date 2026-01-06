@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 18:11:53 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/06 16:20:36 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	get_word_number(char const *s, char c)
 
 	index = 0;
 	count = 0;
+	if (!s)
+		return (0);
 	while (s[index])
 	{
 		while (s[index] == c)
@@ -41,6 +43,8 @@ int	alloc_words(char **lst, char const *s, char c)
 
 	lst_index = 0;
 	index1 = 0;
+	if (!s)
+		return (0);
 	while (s[index1])
 	{
 		while (s[index1] == c)
