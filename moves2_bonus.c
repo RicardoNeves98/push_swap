@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:59 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 15:09:06 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 17:56:16 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ void	swap_first_two_both(t_list **stack1, t_list **stack2)
 	swap_first_two(stack2);
 }
 
-char	**get_move_list(void)
+char	*get_moves_str(void)
 {
 	int		bytes_read;
 	char	*buffer;
-	char	*moves_str;
-	char	**moves_lst;
+	char	*moves_str;	
 
-	moves_str = NULL;
+	moves_str = ft_calloc(1);
+	if (!moves_str)
+		return (NULL);
 	while (1)
 	{
 		buffer = ft_calloc(42);
@@ -55,17 +56,21 @@ char	**get_move_list(void)
 		if (!moves_str)
 			return (NULL);
 	}
-	moves_lst = ft_split(moves_str, '\n');
-	return (free(moves_str), moves_lst);
+	return (moves_str);
 }
 
 int	apply_move_list(t_list **stack1, t_list **stack2)
 {
 	int		i;
+	char	*moves_str;
 	char	**moves_lst;
 
 	i = -1;
-	moves_lst = get_move_list();
+	moves_str = get_moves_str();
+	if (!check_new_lines(moves_str))
+		return (free(moves_str), 0);
+	moves_lst = ft_split(moves_str, '\n');
+	free(moves_str);
 	if (!moves_lst)
 		return (1);
 	while (moves_lst[++i])

@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 15:54:49 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 11:34:22 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:11:09 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char	*ft_calloc(size_t n);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
 
-// utils2_bonus.c 
+// utils2_bonus.c
+int		check_new_lines(char const *s);
 int		get_word_number(char const *s, char c);
 int		alloc_words(char **lst, char const *s, char c);
 char	**ft_split(char const *s, char c);
@@ -58,7 +59,7 @@ int		perform_move(t_list **stack1, t_list **stack2, char *move);
 void	rotate_up_both(t_list **stack1, t_list **stack2);
 void	rotate_down_both(t_list **stack1, t_list **stack2);
 void	swap_first_two_both(t_list **stack1, t_list **stack2);
-char	**get_move_list(void);
+char	*get_moves_str(void);
 int		apply_move_list(t_list **stack1, t_list **stack2);
 
 // checker_bonus.c

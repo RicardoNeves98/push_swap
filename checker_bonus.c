@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 13:53:04 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 14:29:43 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	main(int argc, char **argv)
 		return (0);
 	stack2_head = NULL;
 	if (!apply_move_list(&stack1_head, &stack2_head))
-		return (write(2, "ERROR\n", 6), 0);
+		return (write(2, "Error\n", 6), 0);
 	check_stacks(&stack1_head, &stack2_head);
 	free_stuff(argv, &stack1_head, argc);
 	return (0);

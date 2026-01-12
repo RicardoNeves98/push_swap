@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:47:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 11:11:03 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:12:27 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	free_stuff(char **argv, t_list **stack, int argc);
 
 // utils3.c -> Functions for to access stack info and max and min of numbers 
 int		stack_size(t_list **stack);
+int		check_stack(t_list **stack);
 int		get_last_rank(t_list **stack);
 int		max(int number1, int number2);
 int		min(int number1, int number2);
@@ -82,7 +83,7 @@ void	moves_type4(t_list *node, t_list **stack1, t_list **stack2);
 int		get_min_position(t_list **stack);
 void	order_small(t_list **stack, char c);
 void	rotate_stack(t_list **stack, int size);
-void	back_to_stack(t_list **stack1, t_list **stack2);
+void	back_to_stack(t_list **stack1, t_list **stack2, int size1);
 void	order_stack(t_list **stack1, t_list **stack2);
 
 // push_swap.c -> The main file  
@@ -90,5 +91,6 @@ t_list	*initialize_struct(char **num_list, int argc);
 t_list	*define_node(t_list *node, int number);
 void	define_rank(t_list **stack, int list_len);
 int		check_list(char **argv, int argc, int i);
+void	print_stack(t_list **stack);	
 
 #endif

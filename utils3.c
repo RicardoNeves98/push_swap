@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 18:11:53 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:12:49 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ int	stack_size(t_list **stack)
 		node = (node)->next;
 	}
 	return (count);
+}
+
+int	check_stack(t_list **stack)
+{
+	int		curr_num;
+	t_list	*curr_node;
+
+	curr_node = *stack;
+	curr_num = curr_node->number;
+	while (curr_node->next)
+	{
+		curr_node = curr_node->next;
+		if (curr_node->number < curr_num)
+			return (0);
+		curr_num = curr_node->number;
+	}
+	return (1);
 }
 
 int	get_last_rank(t_list **stack)

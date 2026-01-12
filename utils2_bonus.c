@@ -6,11 +6,26 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:08:27 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 16:22:05 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 18:10:41 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
+
+int	check_new_lines(char const *s)
+{
+	int	i;
+
+	i = -1;
+	if (!s)
+		return (0);
+	while (s[++i])
+		if (s[i + 1] && s[i] == '\n' && s[i + 1] == '\n')
+			return (0);
+	if (ft_strlen(s) == 1 && s[0] == '\n')
+		return (0);
+	return (1);
+}
 
 int	get_word_number(char const *s, char c)
 {

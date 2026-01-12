@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 15:46:18 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2025/12/18 18:48:03 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:12:07 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	rotate_stack(t_list **stack, int size)
 			rotate_down(NULL, stack);
 }
 
-void	back_to_stack(t_list **stack1, t_list **stack2)
+void	back_to_stack(t_list **stack1, t_list **stack2, int size1)
 {
 	int	last_rank;
 	int	count;
@@ -81,17 +81,17 @@ void	back_to_stack(t_list **stack1, t_list **stack2)
 	{
 		while (*stack2 && last_rank < (*stack2)->rank)
 			push_sideways(stack1, stack2, 'a');
-		if (count < 3)
+		if (count < size1)
 		{
 			rotate_down(stack1, NULL);
 			count++;
-			if (count < 3)
+			if (count < size1)
 				last_rank = get_last_rank(stack1);
 			else
 				last_rank = 0;
 		}
 	}
-	while (count++ < 3)
+	while (count++ < size1)
 		rotate_down(stack1, NULL);
 }
 
@@ -102,16 +102,16 @@ void	order_stack(t_list **stack1, t_list **stack2)
 
 	size1 = stack_size(stack1);
 	size2 = stack_size(stack2);
-	while (size1 > 3)
+	while (!check_stack(stack1) && size1 > 3)
 	{
 		move_cheap_node(stack1, stack2);
 		size1--;
 		size2++;
 	}
-	if (size1 > 1)
+	if (!check_stack(stack1) && size1 > 1)
 		order_small(stack1, 'a');
 	if (size2 == 0)
 		return ;
 	rotate_stack(stack2, size2);
-	back_to_stack(stack1, stack2);
+	back_to_stack(stack1, stack2, size1);
 }
