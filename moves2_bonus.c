@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:59 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/12 17:56:16 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:34:22 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	apply_move_list(t_list **stack1, t_list **stack2)
 	moves_lst = ft_split(moves_str, '\n');
 	free(moves_str);
 	if (!moves_lst)
-		return (1);
+		return (0);
 	while (moves_lst[++i])
 	{
 		if (!perform_move(stack1, stack2, moves_lst[i]))

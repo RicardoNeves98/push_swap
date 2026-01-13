@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:21:47 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/12 14:47:06 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/13 10:50:28 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,6 @@ int	check_list(char **argv, int argc, int i)
 	}
 	return (check);
 }
-
-/*
-void	print_stack(t_list **stack)
-{
-	t_list	*curr_node;
-
-	curr_node = *stack;
-	while (curr_node)
-	{
-		printf("%d \n", curr_node->number);
-		curr_node = curr_node->next;
-	}
-}
-*/
 
 int	main(int argc, char **argv)
 {

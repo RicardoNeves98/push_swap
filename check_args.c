@@ -6,7 +6,7 @@
 /*   By: rcarmo-n <rcarmo-n@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:47:03 by rcarmo-n          #+#    #+#             */
-/*   Updated: 2026/01/06 13:49:23 by rcarmo-n         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:03:53 by rcarmo-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	check_integer(char *num_str)
 	while (num_str[++i])
 		if (num_str[i] < '0' || num_str[i] > '9')
 			return (0);
-	if (str_len < 10 + ((sign + 2) % 2))
+	if (str_len < 10 + pass_zeros(num_str))
 		return (1);
-	else if (str_len > 10 + ((sign + 2) % 2))
+	else if (str_len > 10 + pass_zeros(num_str))
 		return (0);
 	return (cmp_lim(num_str, sign));
 }
